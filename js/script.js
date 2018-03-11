@@ -19,6 +19,7 @@ var self = this;
   //this.locationList = ko.observableArray([]);
   // creating a blank array to store locations from the initialList variable
   self.markers = [];
+  self.infoWindows = [];
 
   self.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
@@ -29,8 +30,12 @@ var self = this;
         }
     };
 
+
     self.populateAndBounceMarker = function() {
-        self.populateInfoWindow(this, self.largeInfoWindow);
+        self.infoWindows.forEach(function(infowindow){
+            infowindow.close();
+        })
+        self.populateInfoWindow(this, self.infoWindows[this.id]);
         this.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout((function() {
             this.setAnimation(null);
@@ -48,11 +53,14 @@ var self = this;
         map = new google.maps.Map(mapCanvas, mapOptions);
 
         // Set InfoWindow
-        this.largeInfoWindow = new google.maps.InfoWindow();
+        //this.largeInfoWindow = new google.maps.InfoWindow();
         for (var i = 0; i < myLocations.length; i++) {
+            this.infoWindow = new google.maps.InfoWindow({
+                content: myLocations[i].title
+            });
             this.markerTitle = myLocations[i].title;
-            this.markerLat = myLocations[i].lat;
-            this.markerLng = myLocations[i].lng;
+            this.markerLat = myLocations[i].location.lat;
+            this.markerLng = myLocations[i].location.lng;
             this.marker = new google.maps.Marker({
                 map: map,
                 position: {
@@ -63,10 +71,12 @@ var self = this;
                 lat: this.markerLat,
                 lng: this.markerLng,
                 id: i,
-                animation: google.maps.Animation.DROP
+                animation: google.maps.Animation.DROP,
+                bounce: this.populateAndBounceMarker
             });
             this.marker.setMap(map);
-            this.markers.push(this.marker);
+            self.markers.push(this.marker);
+            self.infoWindows.push(this.infoWindow);
             this.marker.addListener('click', self.populateAndBounceMarker);
         }
     };
@@ -76,11 +86,11 @@ var self = this;
     // Append locations to a list using data-bind (filter tool)
     self.filteredLocationList = ko.computed(function() {
         var result = [];
-        for (var i = 0; i < this.markers.length; i++) {
+        for (var i = 0; i < self.markers.length; i++) {
             var markerLocation = this.markers[i];
             this.name = this.markers[i].title;
             //this.bounce = function(){bounce(this.markers[i].id)};
-            markerLocation.bounce = function(){ self.markers[i].populateAndBounceMarker}
+            markerLocation.bounce = self.markers[i].bounce;
             if (markerLocation.title.toLowerCase().includes(this.searchTerm()
                     .toLowerCase())) {
                 result.push(markerLocation);
