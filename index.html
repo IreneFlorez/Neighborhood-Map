@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="Neighborhood Map Project" content="Map of San Francisco">
+      <title>NYC - Neighborhood Map Project</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css">
+      <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+	<div class="map-container">
+  <div class="textHeader">
+  			<h1>NYC - Neighborhood Map Project</h1>
+  		</div>
+  <div class="search" id="search">
+		<input class="search-box" id="search-box" placeholder="Search…" name="q" data-bind="textInput: searchTerm" "value: query, valueUpdate: 'keydown'"/>
+		<!-- <input id="filter" data-bind="value: filter, valueUpdate: 'afterkeydown'">-->
+	</div>
+	<div class="content" id="content">
+		<div class="locationList" id="locationList">
+    <form action="#">
+			<ul class="results" id="results" data-bind="foreach: filteredList">
+      <!-- <ul data-bind="template: {name:'place', foreach:places}">-->
+				<li class="location" id="location" data-bind="text: name, click: bounce">        </li>
+			</ul>
+      </form>
+		</div>
+		<div class="map" id="map"></div>
+	</div>
+  </div>
+  
+	<script src='js/knockout-3.4.2.js'></script>
+	<script src='js/jquery-3.3.1.slim.min.js'></script>
+	<script src='js/script.js'></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDA6qoUKQ3WJQd4ZxAahhFPM80WJbw-yws&callback=startApp&libraries=places" onerror="errorHandling()"></script>
+</body>
+</html>
+
