@@ -2,14 +2,17 @@ html, body {
      margin: 0;
      font-family: Verdana, Geneva, sans-serif;
 }
- .map-container {
+ .container {
      height: 100%;
      position: relative;
+}
+.textHeader {
+     padding-top: 10px;
+     margin-top:10px;
 }
  h1 {
      color: #525454;
      font-size: 22px;
-     margin: 0 0 10px 0;
      text-align: center;
 }
  .search {
@@ -17,13 +20,10 @@ html, body {
      display: flex;
 }
  #search {
-     position: absolute;
      top: 10px;
      left: 65%;
      height:30%;
      background-color: #fff;
-     padding: 5px;
-     border: 1px solid #999;
      text-align: center;
      font-family: 'Roboto','sans-serif';
      line-height: 30px;
@@ -49,7 +49,7 @@ html, body {
      margin: 10px;
      padding: 10px;
      list-style: none;
-     background-color: #088;
+     background-color: #097;
 }
  .map {
      order: 2;
@@ -66,7 +66,7 @@ html, body {
      margin: 10px;
      padding: 10px;
      list-style: none;
-     background-color: #088;
+     background-color: #097;
 }
  @media only screen and (max-device-width : 959px), only screen and (max-width : 959px) {
      .content {
@@ -76,6 +76,3 @@ html, body {
          font-size: 1.5em;
     }
 }
-
-
-
