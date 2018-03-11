@@ -1,6 +1,6 @@
 // Global Variables
 var map;
-var anchorGPS = {lat: 40.7713024, lng: -73.9632393};
+var anchorGPS = {lat: 40.73086864241803, lng: -73.99738311767578};
 var myLocations = [
   {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
   {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
