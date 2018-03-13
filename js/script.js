@@ -107,6 +107,12 @@ var self = this;
     }
  }
 
+errorHandling = function errorHandling() {
+    alert(
+        'Oops. Google Maps did not load. Please refresh the page and try again!'
+    );
+};
+
 //activating Knockout
 function startApp() {
     ko.applyBindings(new mapViewModel());
