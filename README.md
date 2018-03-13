@@ -9,8 +9,7 @@
 * FontAwesome, jQuery, Knockout, Popper 
 
 ## Instructions
-//All the dependencies are fetched from CDN's so Internet connection is required.
-* Run the index.html file on a browser
+* Open the index.html file on a browser
 * A map will open with markers
 * Markers can be filtered using the search bar on top of sidebar
 * Click on a marker or a list item in sidebar to open the infowindow
@@ -18,7 +17,6 @@
 
 ## Dependencies
 * Bootstrap 
-* FontAwesome 
 * jQuery js framework
 * Knockout js MVVM framework
 
