@@ -34,7 +34,6 @@ var self = this;
                 var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + 
                                 '&sort=newest&api-key=' +
                                 nytkey;
-                
                 $.getJSON(nytimesUrl, function(data){
                     
                     var articles  = data.response.docs;
@@ -54,7 +53,7 @@ var self = this;
                 }).error(function() {
                     alert("There was an issue loading the NYT-Article API.");
                 });
-                infowindow.open(map, marker);
+             //   infowindow.open(map, marker);
 
 
 
