@@ -10,11 +10,16 @@ html, body {
      padding-top: 10px;
      margin-top:10px;
 }
+
  h1 {
      color: #525454;
      font-size: 22px;
      text-align: center;
 }
+ h2, h3, h4 {
+     color: #525454;
+}
+
  .search {
      width: 100%;
      display: flex;
@@ -45,12 +50,18 @@ html, body {
      flex-grow: 1;
      padding: 3px 5px 5px 5px;
 }
- .location {
+ .location, .locationcontent {
      margin: 10px;
      padding: 10px;
      list-style: none;
-     background-color: #097;
+     /* background-color: #097; */      
 }
+
+.wikipedia-container, .nytimes-container{
+     width: 30%;
+}
+
+
  .map {
      order: 2;
      flex-grow: 4;
@@ -61,13 +72,9 @@ html, body {
  .results {
      margin: 0;
      padding: 0;
-}
- .location {
-     margin: 10px;
-     padding: 10px;
-     list-style: none;
-     background-color: #097;
-}
+ }
+
+
  @media only screen and (max-device-width : 959px), only screen and (max-width : 959px) {
      .content {
          flex-direction: column;

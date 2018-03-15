@@ -10,33 +10,44 @@
       <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="map-container">
-  <div class="textHeader">
-  			<h1>NYC - Neighborhood Map Project</h1>
-  		</div>
+  <div class="map-container">
+      <div class="textHeader">
+            <h1>NYC - Neighborhood Map Project</h1>
+      </div>
   <div class="search" id="search">
-		<!-- setting up the view-->
+    <!-- setting up the view-->
     <input class="search-box" id="search-box" placeholder="Search…" name="q" data-bind="textInput: searchTerm" "value: query, valueUpdate: 'afterkeydown'"/>
-		<!-- <input id="filter" data-bind="value: filter, valueUpdate: 'afterkeydown'">-->
-	</div>
-	<div class="content" id="content">
-		<div class="locationList" id="locationList">
-    <form action="#">
-		<!-- setting up the view-->
-    <ul class="results" id="results" data-bind="foreach: filteredLocationList">
-      <!-- <ul data-bind="template: {name:'place', foreach:places}">-->
-				<!-- <li class="location" id="location" data-bind="text: name, click: bounce"></li> -->
-        <li class="location" id="location" data-bind="text: title, click: bounce"></li>
-			</ul>
-      </form>
-		</div>
-		<div class="map" id="map"></div>
-	</div>
+    <!-- <input id="filter" data-bind="value: filter, valueUpdate: 'afterkeydown'">-->
+  </div>
+  <div class="content" id="content">
+      <div class="locationcontent" id="locationcontent">     
+          <div class="locationList" id="locationList">
+            <h3>Locations</h3>
+          <form action="#">
+          <!-- setting up the view-->
+          <ul class="results" id="results" data-bind="foreach: filteredLocationList">
+            <!-- <ul data-bind="template: {name:'place', foreach:places}">-->
+              <!-- <li class="location" id="location" data-bind="text: name, click: bounce"></li> -->
+              <li class="location" id="location" data-bind="text: title, click: bounce"></li>
+            </ul>
+            </form>
+          </div>
+          <div class="wikipedia-container">
+            <h3 id="wikipedia-header">Related Wikipedia Links</h3>
+            <ul id="wikipedia-links"></ul>
+          </div>
+          <div class="nytimes-container">
+              <h3 id="nytimes-header">Related New York Times Articles</h3>
+              <ul id="nytimes-articles" class="article-list"></ul>
+          </div>
+      </div>
+      <div class="map" id="map"></div>
+  </div>
   </div>
   
-	<script src='js/knockout-3.4.2.js'></script>
-	<script src='js/jquery-3.3.1.slim.min.js'></script>
-	<script src='js/script.js'></script>
-	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDA6qoUKQ3WJQd4ZxAahhFPM80WJbw-yws&callback=startApp&libraries=places" onerror="errorHandling()"></script>
+  <script src='js/knockout-3.4.2.js'></script>
+  <script src='js/jquery-3.3.1.slim.min.js'></script>
+  <script src='js/script.js'></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDA6qoUKQ3WJQd4ZxAahhFPM80WJbw-yws&callback=startApp&libraries=places" onerror="errorHandling()"></script>
 </body>
 </html>
