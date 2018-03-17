@@ -1,14 +1,25 @@
 // Global Variables
 var map;
-var anchorGPS = {lat: 40.73086864241803, lng: -73.99738311767578};
+//var anchorGPS = {lat: 40.73086864241803, lng: -73.99738311767578};
+var anchorGPS = {lat: 59.939832, lng: 30.31456};
+
 var myLocations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
-];
+//   {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
+//   {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
+//   {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
+//   {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
+//   {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
+//   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+// ];
+
+  {title: 'Bronze Horseman', location: { lat: 59.936378, lng: 30.30223}},
+  {title: 'Saint Isaac\'s Cathedral', location: {lat: 59.933905, lng: 30.306485}},
+  {title: 'Church of the Savior on Blood', location: {lat: 59.940100, lng: 30.3289}},
+  {title: 'Hermitage Museum', location: {lat: 59.939832, lng: 30.31456}},
+  {title: 'Rostral Columns', location: {lat: 59.944682, lng: 30.304971}},
+  {title: 'Kazan Cathedral', location: {lat: 59.9341891, lng: 30.3244829}},
+  {title: 'Peter and Paul Fortress', location: {lat: 59.9499162, lng: 30.3172042}}
+  ];
 
 
 // setting up viewmodel
@@ -28,12 +39,10 @@ var self = this;
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
 
-
-                var location = marker.getLat() + ',' + marker.getLng();
-                var nytkey = '16c51504fabd43868ccf75a7028ac754'
-                var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + 
-                                '&sort=newest&api-key=' +
-                                nytkey;
+            var nytkey = '16c51504fabd43868ccf75a7028ac754'
+            var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
+                             marker.lat + marker.lng
+                            '&sort=newest&api-key=' + nytkey;
                 $.getJSON(nytimesUrl, function(data){
                     
                     var articles  = data.response.docs;
@@ -45,15 +54,12 @@ var self = this;
                           (i + 1) +
                          '</a></li>';
                     }
-                    if (!(articles.length)) {
-                        content += '<li>No Articles Found</li>';
-                    }
                     content += '</ul>';
                     infowindow.setContent(content);
                 }).error(function() {
                     alert("There was an issue loading the NYT-Article API.");
                 });
-             //   infowindow.open(map, marker);
+
 
 
 
@@ -149,74 +155,3 @@ errorHandling = function errorHandling() {
 function startApp() {
     ko.applyBindings(new mapViewModel());
 }
-
-// function loadData() {
-//     var $body = $('body');
-//     var $wikiElem = $('#wikipedia-links');
-//     var $nytHeaderElem = $('#nytimes-header');
-//     var $nytElem = $('#nytimes-articles');
-//     //var $greeting = $('#greeting');
-
-//     // clear out old data before new request
-//     $wikiElem.text("");
-//     $nytElem.text("");
-
-//     //var streetStr = $('#street').val();
-//     //var cityStr = $('#city').val();
-//     var location = marker.lat + ',' + marker.lng;
-//     var gmapskey = 'AIzaSyDA6qoUKQ3WJQd4ZxAahhFPM80WJbw-yws';
-
-//     // load streetview
-//     var streetviewUrl = 'http://maps.googleapis.com/maps/api/streetview?size=600x300&location=' + location + '&heading=151.78&pitch=-0.76&key=' + gmapskey;
-
-//     $body.append('<img class="bgimg" src="' + streetviewUrl + '">');
-            
-//     // load nytimes
-//             var nytkey = '16c51504fabd43868ccf75a7028ac754'
-//             var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + 
-//                 '&sort=newest&api-key=' +
-//                 nytkey;
-//             $.getJSON(nytimesUrl, function(data){
-                
-//                 articles = data.response.docs;
-//                 for (var i = 0; i < articles.length; i++) {
-//                     var article = articles[i];
-//                     $nytElem.append('<li class="article">'+
-//                         '<a href="'+article.web_url+'">'+article.headline.main+'</a>'+
-//                         '<p>' + article.snippet + '</p>'+
-//                     '</li>');
-//                 };
-
-//                 //infowindow.setContent(this.htmlContent + this.nytApiContent);
-//             }).error(function() {
-//                 alert("There was an issue loading the NYT-Article API.");
-//             });
-
-
-//     // load wikipedia data
-//     var wikiUrl = 'http://en.wikipedia.org/w/api.php?action=opensearch&search=' + location + '&format=json&callback=wikiCallback';
-//     var wikiRequestTimeout = setTimeout(function(){
-//         $wikiElem.text("failed to get wikipedia resources");
-//     }, 8000);
-
-//     $.ajax({
-//         url: wikiUrl,
-//         dataType: "jsonp",
-//         jsonp: "callback",
-//         success: function( response ) {
-//             var articleList = response[1];
-
-//             for (var i = 0; i < articleList.length; i++) {
-//                 articleStr = articleList[i];
-//                 var url = 'http://en.wikipedia.org/wiki/' + articleStr;
-//                 $wikiElem.append('<li><a href="' + url + '">' + articleStr + '</a></li>');
-//             };
-
-//             clearTimeout(wikiRequestTimeout);
-//         }
-//     });
-
-//     return false;
-// };
-
-// $('#form-container').submit(loadData);
