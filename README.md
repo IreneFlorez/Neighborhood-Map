@@ -1,4 +1,4 @@
-# Udacity Neighborhood Map Project
+# Neighborhood Map Project
 
 ## Build
 
