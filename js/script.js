@@ -12,13 +12,13 @@ var myLocations = [
 //   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 // ];
 
-  {title: 'Bronze Horseman', location: { lat: 59.936378, lng: 30.30223}},
-  {title: 'Saint Isaac\'s Cathedral', location: {lat: 59.933905, lng: 30.306485}},
-  {title: 'Church of the Savior on Blood', location: {lat: 59.940100, lng: 30.3289}},
-  {title: 'Hermitage Museum', location: {lat: 59.939832, lng: 30.31456}},
-  {title: 'Rostral Columns', location: {lat: 59.944682, lng: 30.304971}},
-  {title: 'Kazan Cathedral', location: {lat: 59.9341891, lng: 30.3244829}},
-  {title: 'Peter and Paul Fortress', location: {lat: 59.9499162, lng: 30.3172042}}
+  {title: 'Bronze Horseman', location: { lat: 59.936378, lng: 30.30223}, type: 'Museum'},
+  {title: 'Saint Isaac\'s Cathedral', location: {lat: 59.933905, lng: 30.306485}, type: 'Museum'},
+  {title: 'Church of the Savior on Blood', location: {lat: 59.940100, lng: 30.3289}, type: 'Museum'},
+  {title: 'Hermitage Museum', location: {lat: 59.939832, lng: 30.31456}, type: 'Museum'},
+  {title: 'Rostral Columns', location: {lat: 59.944682, lng: 30.304971}, type: 'Museum'},
+  {title: 'Kazan Cathedral', location: {lat: 59.9341891, lng: 30.3244829}, type: 'Museum'},
+  {title: 'Peter and Paul Fortress', location: {lat: 59.9499162, lng: 30.3172042}, type: 'Museum'}
   ];
 
 
@@ -41,23 +41,26 @@ var self = this;
         var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
         url += '?' + $.param({
             'api-key': apikey,
-            'q': this.markerTitle,
-            'sort': "newest"
+            'q': title, //this.markerTitle
+            //'fq': position,
+            //'sort': "newest"
         });
 
         $.ajax({
             url: url,
             method: "GET",
             }).done(function(response) {
-                for (var i = 0; i < 5; i++) {
-                    self.nytArticleList().push({
-                        title: response.response.docs[i].headline.main,
-                        url: response.response.docs[i].web_url,
-                    });
-                }
-                self.displayNYTimes("success");
-            }).fail(function() {
-                self.displayNYTimes("failure");
+                console.log(response);
+  //               for (var i = 0; i < 5; i++) {
+  //                   self.nytArticleList().push({
+  //                       title: response.response.docs[i].headline.main,
+  //                       url: response.response.docs[i].web_url,
+  //                   });
+  //               }
+                //self.displayNYTimes("success");
+            }).fail(function(err) {
+                throw err;
+                //self.displayNYTimes("failure");
             });
   };
 
@@ -65,9 +68,8 @@ var self = this;
 
   self.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
-
-
-
+            //infowindow.setContent('');
+            //infowindow.marker=marker;
         // var nytkey = '16c51504fabd43868ccf75a7028ac754'
         //     var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
         //                      marker.lat + marker.lng
@@ -89,18 +91,10 @@ var self = this;
         //             alert("There was an issue loading the NYT-Article API.");
         //         });
 
-
-
-
             infowindow.open(map, marker);
+            
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
-
-            
-
-
-
-
 
             });
         }
