@@ -32,8 +32,7 @@ var self = this;
   // creating a blank array to store locations from the initialList variable
   self.markers = [];
   self.infoWindows = [];
-  
-  self.nytArticleList = ko.observableArray([]);
+  self.nytArticleList = [];
     
   self.getNYTimes = function() {
         this.nytArticleList([]);
@@ -51,13 +50,13 @@ var self = this;
             method: "GET",
             }).done(function(response) {
                 console.log(response);
-  //               for (var i = 0; i < 5; i++) {
-  //                   self.nytArticleList().push({
-  //                       title: response.response.docs[i].headline.main,
-  //                       url: response.response.docs[i].web_url,
-  //                   });
-  //               }
-                //self.displayNYTimes("success");
+                for (var i = 0; i < 5; i++) {
+                    self.nytArticleList().push({
+                        articleTitle: response.response.docs[i].headline.main,
+                        articleUrl: response.response.docs[i].web_url,
+                    });
+                }
+                self.displayNYTimes("success");
             }).fail(function(err) {
                 throw err;
                 //self.displayNYTimes("failure");
@@ -75,9 +74,9 @@ var self = this;
         //                      marker.lat + marker.lng
         //                     '&sort=newest&api-key=' + nytkey;
         //         $.getJSON(nytimesUrl, function(data){
-                    
+                    //var nytArticleList = [];
         //             var articles  = data.response.docs;
-        //             var content = '<p><b>' + marker.getTitle() +
+        //             //var content = '<p><b>' + marker.getTitle() +
         //             '</b></p><ul>';
         //             for (var i = 0; i < articles.length; i++) {
         //                 content += '<li><a href="' + articles[i].web_url +
@@ -86,7 +85,7 @@ var self = this;
         //                  '</a></li>';
         //             }
         //             content += '</ul>';
-        //             infowindow.setContent(content);
+        //             //infowindow.setContent(content);
         //         }).error(function() {
         //             alert("There was an issue loading the NYT-Article API.");
         //         });
@@ -131,6 +130,7 @@ var self = this;
             this.markerTitle = myLocations[i].title;
             this.markerLat = myLocations[i].location.lat;
             this.markerLng = myLocations[i].location.lng;
+            this.markerNytArticles = myLocations[i].articleList;
             this.marker = new google.maps.Marker({
                 map: map,
                 position: {
@@ -141,11 +141,13 @@ var self = this;
                 lat: this.markerLat,
                 lng: this.markerLng,
                 id: i,
+                extra: this.markerNytArticles,
                 animation: google.maps.Animation.DROP,
                 bounce: this.populateAndBounceMarker
             });
             this.marker.setMap(map);
             self.markers.push(this.marker);
+            
             self.infoWindows.push(this.infoWindow);
             this.marker.addListener('click', self.populateAndBounceMarker);
         }
