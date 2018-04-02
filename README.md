@@ -6,7 +6,7 @@
 * HTML, CSS and JavaScript
 * Google Maps and New York Times APIs
 * Bootstrap
-* FontAwesome, jQuery, Knockout, Popper 
+* FontAwesome, jQuery, Knockout 
 
 ## Instructions
 * Open the index.html file on a browser

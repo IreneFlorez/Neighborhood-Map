@@ -64,8 +64,6 @@ var self = this;
 //             });
 //   };
 
-
-
   self.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
             infowindow.setContent('');
@@ -80,7 +78,7 @@ var self = this;
                     var articles  = data.response.docs;
                     var content = '<p><b>' + marker.getTitle() +
                     '</b></p><ul>';
-                    for (var i = 0; i < articles.length; i++) {
+                    for (var i = 0; i < 5; i++) {
                         content += '<li><a href="' + articles[i].web_url +
                          '" target="_blank">NYT-Article ' +
                           (i + 1) +
