@@ -72,7 +72,7 @@ var self = this;
             infowindow.marker=marker;
             var nytkey = '16c51504fabd43868ccf75a7028ac754'
             var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
-                              marker.Title +
+                              this.marker.Title +
                             '&sort=newest&api-key=' + nytkey;
                 $.getJSON(nytimesUrl, function(data){
                     dataType: 'jsonp'
@@ -88,7 +88,7 @@ var self = this;
                     }
                     content += '</ul>';
                     infowindow.setContent(content);
-                }).error(function() {
+                }).fail(function(err) {
                     alert("There was an issue loading the NYT-Article API.");
                 });
 
