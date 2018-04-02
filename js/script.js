@@ -32,63 +32,65 @@ var self = this;
   // creating a blank array to store locations from the initialList variable
   self.markers = [];
   self.infoWindows = [];
-  self.nytArticleList = [];
+//   self.nytArticleList = [];
     
-  self.getNYTimes = function() {
-        this.nytArticleList([]);
-        var apikey = "16c51504fabd43868ccf75a7028ac754";
-        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-        url += '?' + $.param({
-            'api-key': apikey,
-            'q': title, //this.markerTitle
-            //'fq': position,
-            //'sort': "newest"
-        });
+//   self.getNYTimes = function() {
+//         this.nytArticleList([]);
+//         var apikey = "16c51504fabd43868ccf75a7028ac754";
+//         var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+//         url += '?' + $.param({
+//             'api-key': apikey,
+//             'q': title, //this.markerTitle
+//             //'fq': position,
+//             //'sort': "newest"
+//         });
 
-        $.ajax({
-            url: url,
-            method: "GET",
-            }).done(function(response) {
-                console.log(response);
-                for (var i = 0; i < 5; i++) {
-                    self.nytArticleList().push({
-                        articleTitle: response.response.docs[i].headline.main,
-                        articleUrl: response.response.docs[i].web_url,
-                    });
-                }
-                self.displayNYTimes("success");
-            }).fail(function(err) {
-                throw err;
-                //self.displayNYTimes("failure");
-            });
-  };
+//         $.ajax({
+//             url: url,
+//             method: "GET",
+//             dataType: 'jsonp',
+//             }).done(function(response) {
+//                 console.log(response);
+//                 for (var i = 0; i < 5; i++) {
+//                     self.nytArticleList().push({
+//                         articleTitle: response.response.docs[i].headline.main,
+//                         articleUrl: response.response.docs[i].web_url,
+//                     });
+//                 }
+//                 self.displayNYTimes("success");
+//             }).fail(function(err) {
+//                 throw err;
+//                 //self.displayNYTimes("failure");
+//             });
+//   };
 
 
 
   self.populateInfoWindow = function(marker, infowindow) {
         if (infowindow.marker != marker) {
-            //infowindow.setContent('');
-            //infowindow.marker=marker;
-        // var nytkey = '16c51504fabd43868ccf75a7028ac754'
-        //     var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
-        //                      marker.lat + marker.lng
-        //                     '&sort=newest&api-key=' + nytkey;
-        //         $.getJSON(nytimesUrl, function(data){
-                    //var nytArticleList = [];
-        //             var articles  = data.response.docs;
-        //             //var content = '<p><b>' + marker.getTitle() +
-        //             '</b></p><ul>';
-        //             for (var i = 0; i < articles.length; i++) {
-        //                 content += '<li><a href="' + articles[i].web_url +
-        //                  '" target="_blank">NYT-Article ' +
-        //                   (i + 1) +
-        //                  '</a></li>';
-        //             }
-        //             content += '</ul>';
-        //             //infowindow.setContent(content);
-        //         }).error(function() {
-        //             alert("There was an issue loading the NYT-Article API.");
-        //         });
+            infowindow.setContent('');
+            infowindow.marker=marker;
+            var nytkey = '16c51504fabd43868ccf75a7028ac754'
+            var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
+                              marker.Title +
+                            '&sort=newest&api-key=' + nytkey;
+                $.getJSON(nytimesUrl, function(data){
+                    dataType: 'jsonp'
+                    var nytArticleList = [];
+                    var articles  = data.response.docs;
+                    var content = '<p><b>' + marker.getTitle() +
+                    '</b></p><ul>';
+                    for (var i = 0; i < articles.length; i++) {
+                        content += '<li><a href="' + articles[i].web_url +
+                         '" target="_blank">NYT-Article ' +
+                          (i + 1) +
+                         '</a></li>';
+                    }
+                    content += '</ul>';
+                    infowindow.setContent(content);
+                }).error(function() {
+                    alert("There was an issue loading the NYT-Article API.");
+                });
 
             infowindow.open(map, marker);
             
@@ -130,7 +132,7 @@ var self = this;
             this.markerTitle = myLocations[i].title;
             this.markerLat = myLocations[i].location.lat;
             this.markerLng = myLocations[i].location.lng;
-            this.markerNytArticles = myLocations[i].articleList;
+            //this.markerNytArticles = myLocations[i].articleList;
             this.marker = new google.maps.Marker({
                 map: map,
                 position: {
@@ -141,7 +143,7 @@ var self = this;
                 lat: this.markerLat,
                 lng: this.markerLng,
                 id: i,
-                extra: this.markerNytArticles,
+                //extra: this.markerNytArticles,
                 animation: google.maps.Animation.DROP,
                 bounce: this.populateAndBounceMarker
             });
