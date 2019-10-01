@@ -36,7 +36,7 @@ var self = this;
     
 //   self.getNYTimes = function() {
 //         this.nytArticleList([]);
-//         var apikey = "16c51504fabd43868ccf75a7028ac754";
+//         var apikey = "";
 //         var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
 //         url += '?' + $.param({
 //             'api-key': apikey,
@@ -68,7 +68,7 @@ var self = this;
         if (infowindow.marker != marker) {
             infowindow.setContent('');
             infowindow.marker=marker;
-            var nytkey = '16c51504fabd43868ccf75a7028ac754'
+            var nytkey = ''
             var nytimesUrl = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' +
                               this.marker.Title +
                             '&sort=newest&api-key=' + nytkey;
